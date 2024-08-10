@@ -102,7 +102,37 @@ def update_data(client):
 
 
 def delete_data(client):
-    pass
+    db = client.get_database('agridataset')
+    collection = db['agri_data']
+
+    # Delete the data
+    obj_id = ObjectId('66b667e44c5540a5c275fde4')
+
+    collection.delete_one({'_id': obj_id})
+
+    print('Data deleted successfully')
+    return obj_id
+
+    #delete_one for delete only one item in the jason or data base
+    #delete_many for delete all the item in the jason or data base meanse more thane one
+
+
+def replace_data(client):
+    db = client.get_database('agridataset')
+    collection = db['agri_data']
+
+    # Replace the data
+    obj_id = ObjectId('66b667e44c5540a5c275fddf')
+
+    collection.replace_one({'_id': obj_id}, {'Dist Code': 5})
+
+    print('Data replaced successfully')
+
+    return obj_id
+
+    #replace_one for replace only one item in the jason or data base
+    #replace_many for replace all the item in the jason or data base meanse more thane one
+
 
 def main():
 
@@ -131,6 +161,14 @@ def main():
     # Delete the data
     #
     obj_id_del = delete_data(client)
+
+    query_data(client,obj_id_del)
+
+    # Replace the data
+    obj_repl =  replace_data(client)
+
+    query_data(client,obj_repl)
+
 
 
 if __name__ == '__main__':
